@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: refresh_token_table
+      author: yluttsev
+      changes:
+        - createTable:
+            tableName: refresh_token
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: token
+                  type: text
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    unique: true
+                    foreignKeyName: user_id
+                    referencedTableName: app_user
+                    referencedColumnNames: id
+              - column:
+                  name: expiration_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_revoked
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

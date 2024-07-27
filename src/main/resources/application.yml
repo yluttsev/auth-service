@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: auth-service
+  liquibase:
+    change-log: db/changelog/changelog-master.yaml
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+jwt:
+  access:
+    secret: 7afb33ed99e00416a6853954c4167c086c84ae09e4ddd3d03ead831315048510
+    expiration: 60000
+  refresh:
+    secret: c444083d5bca9ccfe7d22cae2e03f0d6c5bed322917a987d0cd23b2a54aa431f
+    expiration: 2592000000
+    cookie-name: jwt-refresh-token

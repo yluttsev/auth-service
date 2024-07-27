@@ -14,8 +14,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, UUID> {
 
     Optional<AppUser> findByLogin(String login);
 
-    Optional<AppUser> findByEmail(String email);
-
     @Query("select exists (select u from AppUser u where u.login = :login)")
     boolean checkLogin(@Param("login") String login);
 

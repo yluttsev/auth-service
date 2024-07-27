@@ -1,4 +1,4 @@
-package ru.luttsev.authservice.model.payload;
+package ru.luttsev.authservice.model.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignInRequest {
+public class SignUpRequest {
 
     private String login;
 
     private String password;
+
+    private String email;
 
 }

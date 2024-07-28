@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +13,6 @@ public class UserRolesResponse {
 
     private String user;
 
-    private List<String> roles;
+    private Collection<String> roles;
 
 }

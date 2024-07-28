@@ -7,6 +7,8 @@ import ru.luttsev.authservice.model.entity.Role;
 import ru.luttsev.authservice.repository.RoleRepository;
 import ru.luttsev.authservice.service.RoleService;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
@@ -21,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getUserRole(String login) {
+    public Set<Role> getUserRoles(String login) {
         return roleRepository.findRolesByLogin(login);
     }
 

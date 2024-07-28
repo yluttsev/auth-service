@@ -1,29 +1,23 @@
 package ru.luttsev.authservice.service.impl;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.WebUtils;
 import ru.luttsev.authservice.exception.TokenRefreshException;
 import ru.luttsev.authservice.exception.UserAlreadyExistsException;
 import ru.luttsev.authservice.model.entity.AppUser;
 import ru.luttsev.authservice.model.entity.RefreshToken;
 import ru.luttsev.authservice.model.payload.request.SignInRequest;
-import ru.luttsev.authservice.model.payload.response.SignInResponse;
 import ru.luttsev.authservice.model.payload.request.SignUpRequest;
+import ru.luttsev.authservice.model.payload.request.TokenRefreshRequest;
 import ru.luttsev.authservice.model.payload.response.SignUpResponse;
-import ru.luttsev.authservice.model.payload.response.TokenRefreshResponse;
+import ru.luttsev.authservice.model.payload.response.TokenResponse;
 import ru.luttsev.authservice.service.AppUserService;
 import ru.luttsev.authservice.service.AuthService;
 import ru.luttsev.authservice.service.RefreshTokenService;
@@ -72,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public ResponseEntity<SignInResponse> signIn(SignInRequest signInRequest) {
+    public TokenResponse signIn(SignInRequest signInRequest) {
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 signInRequest.getLogin(), signInRequest.getPassword()
         ));
@@ -89,41 +83,27 @@ public class AuthServiceImpl implements AuthService {
                         .token(refreshToken)
                         .expirationDate(LocalDateTime.ofInstant(refreshExpiration.toInstant(), ZoneId.systemDefault()))
                         .build());
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, this.createRefreshTokenCookie(refreshToken).toString())
-                .body(SignInResponse.builder()
-                        .accessToken(accessToken)
-                        .expiredAt(jwtService.getTokenExpiration(accessToken).getTime())
-                        .build()
-                );
+        return TokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .expiredAt(jwtService.getTokenExpiration(accessToken).getTime())
+                .build();
     }
 
     @Override
     @Transactional
-    public ResponseEntity<TokenRefreshResponse> refreshToken(HttpServletRequest httpServletRequest) {
-        String cookieRefreshToken = this.getRefreshTokenCookie(httpServletRequest).getValue();
-        if (cookieRefreshToken != null) {
-            RefreshToken refreshToken = refreshTokenService.getByToken(cookieRefreshToken);
-            if (!refreshTokenService.isExpired(refreshToken) && !refreshToken.isRevoked()) {
-                String accessToken = jwtService.generateAccessToken(refreshToken.getUser().getLogin());
+    public TokenResponse refreshToken(TokenRefreshRequest tokenRefreshRequest) {
+        String refreshToken = tokenRefreshRequest.getRefreshToken();
+        if (refreshToken != null) {
+            RefreshToken refreshTokenEntity = refreshTokenService.getByToken(refreshToken);
+            if (!refreshTokenService.isExpired(refreshTokenEntity) && !refreshTokenEntity.isRevoked()) {
+                String accessToken = jwtService.generateAccessToken(refreshTokenEntity.getUser().getLogin());
                 Date accessTokenExpiration = jwtService.getTokenExpiration(accessToken);
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.SET_COOKIE, this.createRefreshTokenCookie(cookieRefreshToken).toString())
-                        .body(new TokenRefreshResponse(accessToken, accessTokenExpiration.getTime()));
+                return new TokenResponse(accessToken, refreshToken, accessTokenExpiration.getTime());
             }
             throw new TokenRefreshException("Refresh token was expired.");
         }
         throw new TokenRefreshException("Invalid refresh token.");
-    }
-
-    @Override
-    public ResponseCookie createRefreshTokenCookie(String refreshToken) {
-        return ResponseCookie.from(refreshCookieName, refreshToken).path("/auth/refresh-token").httpOnly(true).build();
-    }
-
-    @Override
-    public Cookie getRefreshTokenCookie(HttpServletRequest httpServletRequest) {
-        return WebUtils.getCookie(httpServletRequest, refreshCookieName);
     }
 
 }

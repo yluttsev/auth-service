@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignInResponse {
+public class TokenResponse {
 
     @JsonProperty("access_token")
     private String accessToken;
+
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 
     @JsonProperty("expired_at")
     private long expiredAt;

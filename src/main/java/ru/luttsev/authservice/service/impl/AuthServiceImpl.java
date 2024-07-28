@@ -64,8 +64,8 @@ public class AuthServiceImpl implements AuthService {
                 .login(signUpRequest.getLogin())
                 .email(signUpRequest.getEmail())
                 .password(BCrypt.hashpw(signUpRequest.getPassword(), BCrypt.gensalt()))
-                .role(roleService.getById("USER"))
                 .build();
+        createdAppUser.getRoles().add(roleService.getById("ROLE_USER"));
         appUserService.save(createdAppUser);
         return new SignUpResponse("The user '%s' has been successfully registered.".formatted(signUpRequest.getLogin()));
     }

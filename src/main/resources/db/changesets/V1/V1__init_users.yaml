@@ -24,14 +24,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: role
-                  type: text
-                  constraints:
-                    nullable: false
-                    foreignKeyName: role
-                    referencedTableName: role
-                    referencedColumnNames: id
-              - column:
                   name: email
                   type: text
                   constraints:

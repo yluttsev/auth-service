@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: users_roles_table
+      author: yluttsev
+      changes:
+        - createTable:
+            tableName: users_roles
+            ifNotExists: true
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: user_id
+                    referencedTableName: app_user
+                    referencedColumnNames: id
+              - column:
+                  name: role_id
+                  type: text
+                  constraints:
+                    nullable: false
+                    foreignKeyName: role_id
+                    referencedTableName: role
+                    referencedColumnNames: id

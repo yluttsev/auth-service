@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.luttsev.authservice.model.entity.AppUser;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class AppUserDetailsImpl implements UserDetails {
@@ -16,7 +16,9 @@ public class AppUserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(appUser.getRole().getId()));
+        return appUser.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getId()))
+                .collect(Collectors.toSet());
     }
 
     @Override

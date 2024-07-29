@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public TokenResponse refreshToken(TokenRefreshRequest request) {
+    public TokenResponse refreshToken(@RequestBody TokenRefreshRequest request) {
         return authService.refreshToken(request);
     }
 

@@ -4,14 +4,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.luttsev.authservice.model.entity.Role;
+import ru.luttsev.authservice.service.RoleService;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
+
+    private final RoleService roleService;
 
     @Value("${jwt.access.secret}")
     private String accessSecret;
@@ -30,6 +36,7 @@ public class JwtService {
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .withExpiresAt(new Date().toInstant().plus(accessExpirationTime, ChronoUnit.MILLIS))
                 .withSubject(username)
+                .withClaim("roles", roleService.getUserRoles(username).stream().map(Role::getId).toList())
                 .sign(Algorithm.HMAC256(accessSecret));
     }
 

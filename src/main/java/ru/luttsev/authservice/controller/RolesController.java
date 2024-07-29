@@ -23,7 +23,7 @@ public class RolesController {
 
     private final AppUserService appUserService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/save")
     public UserRolesResponse addRoleToUser(@RequestBody AddRoleRequest addRoleRequest) {
         roleService.addRolesToUser(appUserService.getUserByLogin(addRoleRequest.getUser()),

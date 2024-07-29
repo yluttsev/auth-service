@@ -2,12 +2,11 @@ package ru.luttsev.authservice.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.luttsev.authservice.exception.TokenRefreshException;
 import ru.luttsev.authservice.exception.UserAlreadyExistsException;
@@ -41,8 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final RefreshTokenService refreshTokenService;
 
-    @Value("${jwt.refresh.cookie-name}")
-    private String refreshCookieName;
+    private final PasswordEncoder bcryptPasswordEncoder;
 
     @Override
     @Transactional
@@ -57,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
         AppUser createdAppUser = AppUser.builder()
                 .login(signUpRequest.getLogin())
                 .email(signUpRequest.getEmail())
-                .password(BCrypt.hashpw(signUpRequest.getPassword(), BCrypt.gensalt()))
+                .password(bcryptPasswordEncoder.encode(signUpRequest.getPassword()))
                 .build();
         createdAppUser.getRoles().add(roleService.getById("ROLE_USER"));
         appUserService.save(createdAppUser);

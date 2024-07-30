@@ -94,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
         String refreshToken = tokenRefreshRequest.getRefreshToken();
         if (refreshToken != null) {
             RefreshToken refreshTokenEntity = refreshTokenService.getByToken(refreshToken);
-            if (!refreshTokenService.isExpired(refreshTokenEntity) && !refreshTokenEntity.isRevoked()) {
+            if (!refreshTokenService.isExpired(refreshTokenEntity)) {
                 String accessToken = jwtService.generateAccessToken(refreshTokenEntity.getUser().getLogin());
                 Date accessTokenExpiration = jwtService.getTokenExpiration(accessToken);
                 return new TokenResponse(accessToken, refreshToken, accessTokenExpiration.getTime());

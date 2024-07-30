@@ -45,8 +45,4 @@ public class RefreshToken {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime expirationDate;
 
-    @Builder.Default
-    @Column(name = "is_revoked", nullable = false)
-    private boolean isRevoked = false;
-
 }

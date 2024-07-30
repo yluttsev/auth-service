@@ -31,9 +31,3 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
-              - column:
-                  name: is_revoked
-                  type: boolean
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false

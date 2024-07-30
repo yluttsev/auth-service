@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = jwtService.generateAccessToken(user.getLogin());
         String refreshToken = jwtService.generateRefreshToken(user.getLogin());
         Date refreshExpiration = jwtService.getTokenExpiration(refreshToken);
-        refreshTokenService.deleteTokenByUser(user);
+        refreshTokenService.deleteTokenByUserId(user.getId());
         refreshTokenService.save(
                 RefreshToken.builder()
                         .user(user)

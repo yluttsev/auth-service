@@ -1,7 +1,8 @@
 package ru.luttsev.authservice.service;
 
-import ru.luttsev.authservice.model.entity.AppUser;
 import ru.luttsev.authservice.model.entity.RefreshToken;
+
+import java.util.UUID;
 
 public interface RefreshTokenService {
 
@@ -9,7 +10,7 @@ public interface RefreshTokenService {
 
     RefreshToken getByToken(String token);
 
-    void deleteTokenByUser(AppUser user);
+    void deleteTokenByUserId(UUID login);
 
     boolean isExpired(RefreshToken token);
 

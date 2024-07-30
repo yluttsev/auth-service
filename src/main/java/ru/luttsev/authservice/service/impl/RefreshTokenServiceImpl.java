@@ -3,12 +3,12 @@ package ru.luttsev.authservice.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.luttsev.authservice.exception.RefreshTokenNotFoundException;
-import ru.luttsev.authservice.model.entity.AppUser;
 import ru.luttsev.authservice.model.entity.RefreshToken;
 import ru.luttsev.authservice.repository.TokenRepository;
 import ru.luttsev.authservice.service.RefreshTokenService;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +27,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public void deleteTokenByUser(AppUser user) {
-        tokenRepository.deleteByUser(user);
+    public void deleteTokenByUserId(UUID userId) {
+        tokenRepository.deleteByUserId(userId);
     }
 
     @Override

@@ -2,7 +2,9 @@ package ru.luttsev.authservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,8 @@ public class UserRoleController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/user-role")
-    public UserRolesResponse userRole(@AuthenticationPrincipal String userPrincipal) {
-        Set<Role> userRoles = roleService.getUserRoles(userPrincipal);
-        return new UserRolesResponse(userPrincipal, userRoles.stream().map(Role::getId).toList());
+    public UserRolesResponse userRole(@AuthenticationPrincipal UserDetails userDetails) {
+        return new UserRolesResponse(userDetails.getUsername(), userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

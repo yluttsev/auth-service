@@ -20,6 +20,11 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Сущность refresh токена
+ *
+ * @author Yuri Luttsev
+ */
 @Getter
 @Setter
 @Entity

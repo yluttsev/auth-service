@@ -7,6 +7,11 @@ import ru.luttsev.authservice.model.entity.AppUser;
 import ru.luttsev.authservice.repository.AppUserRepository;
 import ru.luttsev.authservice.service.AppUserService;
 
+/**
+ * Реализация сервиса для работы с пользователями
+ *
+ * @author Yuri Luttsev
+ */
 @Service
 @RequiredArgsConstructor
 public class AppUserServiceImpl implements AppUserService {

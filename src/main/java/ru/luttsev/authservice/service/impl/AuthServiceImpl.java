@@ -26,6 +26,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * Реализация сервиса для аутентификации и регистрации
+ *
+ * @author Yuri Luttsev
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {

@@ -11,6 +11,11 @@ import ru.luttsev.authservice.service.RoleService;
 
 import java.util.Set;
 
+/**
+ * Реализация сервиса для работы с ролями
+ *
+ * @author Yuri Luttsev
+ */
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {

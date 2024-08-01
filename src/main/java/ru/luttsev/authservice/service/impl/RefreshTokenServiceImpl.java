@@ -10,6 +10,11 @@ import ru.luttsev.authservice.service.RefreshTokenService;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Реализация сервиса для работы с refresh токенами
+ *
+ * @author Yuri Luttsev
+ */
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenServiceImpl implements RefreshTokenService {

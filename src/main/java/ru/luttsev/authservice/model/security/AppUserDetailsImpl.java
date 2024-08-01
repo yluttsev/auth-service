@@ -9,6 +9,11 @@ import ru.luttsev.authservice.model.entity.AppUser;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ * Детали аутентифицированного пользователя
+ *
+ * @author Yuri Luttsev
+ */
 @RequiredArgsConstructor
 public class AppUserDetailsImpl implements UserDetails {
 

@@ -9,6 +9,11 @@ import ru.luttsev.authservice.exception.RefreshTokenNotFoundException;
 import ru.luttsev.authservice.exception.TokenRefreshException;
 import ru.luttsev.authservice.exception.UserAlreadyExistsException;
 
+/**
+ * Обработчик исключений
+ *
+ * @author Yuri Luttsev
+ */
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 

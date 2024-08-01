@@ -19,6 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ru.luttsev.authservice.filter.JwtAuthenticationFilter;
 import ru.luttsev.authservice.service.impl.UserDetailsServiceImpl;
 
+/**
+ * Конфигурация Spring Security
+ *
+ * @author Yuri Luttsev
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity

@@ -10,6 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Сущность роли пользователя
+ *
+ * @author Yuri Luttsev
+ */
 @Getter
 @Setter
 @Entity

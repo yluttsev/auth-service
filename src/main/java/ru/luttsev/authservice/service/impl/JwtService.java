@@ -13,6 +13,11 @@ import ru.luttsev.authservice.service.RoleService;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+/**
+ * Сервис для работы с JWT токенами
+ *
+ * @author Yuri Luttsev
+ */
 @Service
 @RequiredArgsConstructor
 public class JwtService {

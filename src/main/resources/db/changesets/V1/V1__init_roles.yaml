@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: role_table
+      author: yluttsev
+      changes:
+        - createTable:
+            tableName: role
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: text
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false

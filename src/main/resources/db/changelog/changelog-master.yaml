@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changesets/V1/V1__init_roles.yaml
+  - include:
+      file: db/changesets/V1/V1__init_users.yaml
+  - include:
+      file: db/changesets/V1/V1__init_tokens.yaml
+  - include:
+      file: db/changesets/V1/V1__insert_roles.yaml
+  - include:
+      file: db/changesets/V1/V1__init_users_roles.yaml

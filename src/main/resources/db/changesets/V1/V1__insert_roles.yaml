@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert_roles
+      author: yluttsev
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_USER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_CREDIT_USER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_OVERDRAFT_USER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_OVERDRAFT_DEAL_SUPERUSER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_CONTRACTOR_RUS
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_CONTRACTOR_SUPERUSER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_SUPERUSER
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: ROLE_ADMIN

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: auth-service
+  liquibase:
+    change-log: db/changelog/changelog-master.yaml
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+jwt:
+  access:
+    secret:
+    expiration:
+  refresh:
+    secret:
+    expiration:
